@@ -3,10 +3,18 @@ import Sound from './sounds.js'
 export default function Timer({ 
   minutesDisplay,
   secondsDisplay,
-  timerTimeOut
+  timerTimeOut,
+  bttnMoon,
+  bttnSun,
+  $html,
+  bttnPause,
+  bttnPlay
 }) { 
+
+const sound = Sound({})
+
   function resetTimer() { 
-    Sound().timeEnd()
+    sound.timeEnd()
     minutesDisplay.textContent = 25
     secondsDisplay.textContent = '00'
     clearTimeout(timerTimeOut)
@@ -40,10 +48,39 @@ export default function Timer({
     clearTimeout(timerTimeOut)
   }
 
+  function pressButtonSun() { 
+    bttnMoon.classList.remove('hide')
+    bttnSun.classList.add('hide')
+    $html.classList.add('dark-mode')
+    $html.classList.remove('white-mode')
+  }
+
+  function pressButtonMoon() { 
+    bttnSun.classList.remove('hide')
+    bttnMoon.classList.add('hide')
+    $html.classList.remove('dark-mode')
+    $html.classList.add('white-mode')
+  }
+
+  function play() { 
+    bttnPlay.classList.add('hide')
+    bttnPause.classList.remove('hide')
+  }
+
+  function pause() { 
+    bttnPlay.classList.remove('hide')
+    bttnPause.classList.add('hide')
+  }
+
+  
   return { 
     resetTimer,
     countdown,
-    hold
+    hold,
+    pressButtonSun,
+    pressButtonMoon,
+    play,
+    pause
   }
 }
 
